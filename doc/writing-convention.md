@@ -42,7 +42,7 @@ create separate file for style , script
 
 upadet the requirment.txt file after installing any new package 
 
-    commands :  pip freeze > requirment.txt 
+    commands :  pip freeze > requirements.txt 
 
     
 
@@ -64,16 +64,16 @@ or use github action to test your code
 ## contributing to open source 
 --------------------------------------------------------------
 
- 1. fork the repo 
- 2. clone the repo ( git clone repo-link )
- 3. create a branch  ( git checkout -b branch-name )
- 4. make changes
- 5. commit changes ( git commit -m "title:  -- body:  what  kind of change  is done , why , any remak or  any  other  thing  you want to  say" )
- 6. push changes  ( git push origin branch-name )
- 7. create pull request ( git pull origin branch-name )
- 8. wait for review 
- 9. merge the pull request
- 10. delete the branch ( git branch -d branch-name)
+   1. fork the repo 
+   2. clone the repo ( git clone repo-link )
+   3. create a branch  ( git checkout -b branch-name )
+   4. make changes
+   5. commit changes ( git commit -m "title:  -- body:  what  kind of change  is done , why , any remak or  any  other  thing  you want to  say" )
+   6. push changes  ( git push origin branch-name )
+   7. create pull request ( git pull origin branch-name )
+   8. wait for review 
+   9. merge the pull request
+   10. delete the branch ( git branch -d branch-name)
 
 
 
