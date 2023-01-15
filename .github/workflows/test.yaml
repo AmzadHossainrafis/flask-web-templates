@@ -30,3 +30,4 @@ jobs:
     - name: Run pytest
       run: |
         pytest test_home_page.py
+        echo "Test completed"
