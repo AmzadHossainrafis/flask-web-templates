@@ -1,4 +1,5 @@
 bangla-ai/
+__pycache__/
 
 *.pyc
 website/__pycache__/
@@ -12,3 +13,6 @@ htmlcov/
 dist/
 build/
 *.egg-info/
+
+
+.pytest_cache/

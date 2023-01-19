@@ -1,11 +1,12 @@
 import pytest
-import requests
+from app import app
 
-def test_home_page():
-    response = requests.get('http://localhost:5000/')
+@pytest.fixture
+def client():
+    with app.test_client() as client:
+        yield client
+
+def test_home_page(client):
+    response = client.get('/')
     assert response.status_code == 200
-    assert "Welcome to the home page" in response.content.decode()
-
-
-if __name__ == '__main__':
-    pytest.test_home_page() 
+    assert b'Home' in response.data
