@@ -1,9 +1,17 @@
 import os
 from flask import Flask
+from flask_sqlalchemy import SQLAlchemy 
 from config import Config 
+from os import path 
+from flask_login import LoginManager 
+from flask_sqlalchemy import SQLAlchemy
 
 
-def create_app(test_config=None):
+
+
+db = SQLAlchemy()
+
+def create_app():
     '''
     summary : 
 
@@ -22,27 +30,15 @@ def create_app(test_config=None):
     :return: Flask app instance 
 
     '''
-
     # create and configure the app
-    app = Flask(__name__, instance_relative_config=True)
-    app.config.from_mapping(
-        SECRET_KEY=Config['SECRET_KEY'],
-        DATABASE=os.path.join(app.instance_path, Config['DATABASE_NAME']),
-    )
+    app = Flask(__name__)
+    app.config['SECRET_KEY'] = Config['SECRET_KEY'] 
+    app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{Config["DATABASE_NAME"]}' 
+    db.init_app(app) 
 
-    if test_config is None:
-        # load the instance config, if it exists, when not testing
-        app.config.from_pyfile('config.py', silent=True)
-    else:
-        # load the test config if passed in
-        app.config.from_mapping(test_config)
 
-    # ensure the instance folder exists
-    try:
-        os.makedirs(app.instance_path)
-    except OSError:
-        pass
 
+   
 
 
 
@@ -54,4 +50,26 @@ def create_app(test_config=None):
     app.register_blueprint(auth , url_prefix='/')
 
 
+
+    from . import models 
+    from .models import User
+    with app.app_context():
+        db.create_all()
+
+
+
+    login_Manager=LoginManager()
+    login_Manager.login_view='views.login'
+    login_Manager.init_app(app)
+
+    @login_Manager.user_loader 
+    def load_user(id): 
+        return User.query.get(int(id))
+
+
+
+
+
     return app
+
+
