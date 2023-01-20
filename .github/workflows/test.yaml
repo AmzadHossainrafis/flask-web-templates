@@ -1,15 +1,13 @@
-name: Python tests
+name: Python application on Ubuntu
 
 on:
   push:
-    branches:
-      - dev
+    branches: [ dev ]
   pull_request:
-    branches:
-      - dev
+    branches: [ dev ]
 
 jobs:
-  test:
+  build:
     runs-on: ubuntu-latest
 
     steps:
@@ -19,15 +17,13 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
-        python-version: 3.9
+        python-version: 3.x
 
     - name: Install dependencies
       run: |
-        python -m venv venv
-        source venv/bin/activate
+        python -m pip install --upgrade pip
         pip install -r requirements.txt
 
     - name: Run pytest
       run: |
-        pytest test_home_page.py
-        echo "Test completed"
+        pytest --tb=short -ra
